@@ -77,7 +77,7 @@ App = (function() {
           _this.showTable();
           _this.hideWaiting();
           console.info("Here's what was returned:");
-          return console.table(_this.urls);
+          return console.log(_this.urls);
         };
       })(this)
     });
