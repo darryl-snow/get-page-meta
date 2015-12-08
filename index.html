@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Website SEO Crawler</title>
+		<meta charset="utf-8">
+		<meta name="description" content="Enter a URL and get a list of Titles and Descriptions for every page on the site">
+		<meta name="author" content="Darryl Snow">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="robots" content="nofollow">
+
+		<style>
+
+			html,
+			body {
+				font-family: sans-serif;
+				margin: 0;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			a {
+				color: #3498db;
+				border-bottom: 1px solid transparent;
+				text-decoration: none;
+				transition: 0.15s all ease-in-out;
+			}
+
+			a:active,
+			a:focus,
+			a:hover {
+				border-color: #3498db;
+			}
+
+			.c-page__header {
+				background: #f5f5f5;
+				border-bottom: 1px solid #eee;
+				padding: 15px;
+			}
+
+			.c-page__content {
+				padding: 15px;
+			}
+
+			.o-input {
+				display: inline-block;
+				line-height: 35px;
+				height: 35px;
+				margin: 0;
+				padding: 0 10px;
+				width: calc(80% - 2px);
+				vertical-align: middle;
+			}
+
+			.o-button {
+				background: transparent;
+				border: 1px solid #95a5a6;
+				border-radius: 3px;
+				color: #34495e;
+				cursor: pointer;
+				display: inline-block;
+				height: 35px;
+				line-height: 35px;
+				margin: 0;
+				padding: 0;
+				text-transform: uppercase;
+				transition: 0.15s all ease-in-out;
+				width: calc(20% - 6px);
+				vertical-align: middle;
+			}
+
+			.o-button:active,
+			.o-button:focus,
+			.o-button:hover {
+				background: #ecf0f1;
+				border-color: #34495e;
+			}
+
+			/*table styles from Bootstrap*/
+
+			.o-table {
+				border: 1px solid #ddd;
+				border-spacing: 0;
+				border-collapse: collapse;
+				color: #666;
+				width: 100%;
+				max-width: 100%;
+			}
+			.o-table > thead > tr > th,
+			.o-table > tbody > tr > th,
+			.o-table > tfoot > tr > th,
+			.o-table > thead > tr > td,
+			.o-table > tbody > tr > td,
+			.o-table > tfoot > tr > td {
+				border: 1px solid #ddd;
+				padding: 8px;
+				line-height: 1.42857143;
+				vertical-align: top;
+				border-top: 1px solid #ddd;
+			}
+			.o-table > thead > tr > th {
+				vertical-align: bottom;
+				border-bottom: 2px solid #ddd;
+			}
+			.o-table > caption + thead > tr:first-child > th,
+			.o-table > colgroup + thead > tr:first-child > th,
+			.o-table > thead:first-child > tr:first-child > th,
+			.o-table > caption + thead > tr:first-child > td,
+			.o-table > colgroup + thead > tr:first-child > td,
+			.o-table > thead:first-child > tr:first-child > td {
+				border-top: 0;
+				margin: 0;
+			}
+			.o-table > tbody + tbody {
+				border-top: 2px solid #ddd;
+			}
+			.o-table .o-table {
+				background-color: #fff;
+			}
+			.o-table > thead > tr > th,
+			.o-table > thead > tr > td {
+				border-bottom-width: 2px;
+				color: #999;
+				font-weight: 600;
+			}
+			.o-table > tbody > tr:nth-of-type(odd) {
+				background-color: #f9f9f9;
+			}
+			.o-table > tbody > tr:hover {
+				background-color: #f5f5f5;
+			}
+			table col[class*="col-"] {
+				position: static;
+				display: table-column;
+				float: none;
+			}
+			table td[class*="col-"],
+			table th[class*="col-"] {
+				position: static;
+				display: table-cell;
+				float: none;
+			}
+
+			.u-hidden {
+				opacity: 0;
+				transition: 0.15s all ease-in-out;
+			}
+
+			.c-waiting {
+				color: #666;
+				text-align: center;
+			}
+
+		</style>
+
+		<script>
+			
+			var depth = 2;
+
+		</script>
+
+	</head>
+	<body>
+
+		<div class="c-page__header">
+			<input class="o-input js-url-input" placeholder="Enter a URL" type="text" value="https://www.apple.com/cn/" />
+			<button class="o-button js-url-submit" type="button">crawl</button>
+		</div>
+
+		<div class="c-page__content">
+
+		<table class="o-table js-results-table u-hidden">
+			<thead>
+				<tr>
+					<td>URL</td>
+					<td>Title</td>
+					<td>Description</td>
+				</tr>
+			</thead>
+			<tbody class="js-results-table-body"></tbody>
+		</table>
+
+		<div class="c-waiting js-waiting u-hidden">Please wait&hellip;</div>
+
+		</div>
+
+		<script src="bundle.js" type="text/javascript"></script>
+
+	</body>
+</html>
