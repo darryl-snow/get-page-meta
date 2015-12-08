@@ -41,25 +41,17 @@ class App
 				description = ""
 
 				html = page.response.body
-				titleRegex = /<title itemprop="name">(.*?)<\/title>/g
-				matches = html.match(titleRegex)
+				titleRegex = /<title( itemprop="name")?>(.*?)<\/title>/g
+				matches = html.match titleRegex
 				if matches
-					title = html.match(titleRegex)[0].replace('<title itemprop="name">', '').replace('</title>', '')
-				else
-					titleRegex = /<title>(.*?)<\/title>/g
-					matches = html.match(titleRegex)
-					if matches
-						title = html.match(titleRegex)[0].replace('<title>', '').replace('</title>', '')
+					title = matches[0].replace(/<title( itemprop="name")?>/g, "").replace(/<\/title>/g, "")
 
-				descriptionRegex = /(<meta name="Description" content=")(.*?)(" \/>)/
-				matches = html.match(descriptionRegex)
+				descriptionRegex = /(<meta name="(D|d)escription"(\n  )? content=")(.*?)("( |  )\/>)/
+				matches = html.toString().match descriptionRegex
 				if matches
-					description = html.match(descriptionRegex)[0].replace('<meta name="Description" content="', '').replace('" />', '')
+					description = matches[0].replace(/(<meta name="(D|d)escription"(\n  )? content=")/g, "").replace(/("( |  )\/>)/g, "")
 				else
-					descriptionRegex = /(<meta name="description" content=")(.*?)(" \/>)/
-					matches = html.match(descriptionRegex)
-					if matches
-						description = html.match(descriptionRegex)[0].replace('<meta name="description" content="', '').replace('" />', '')
+					description = "check this"
 
 				@urls.push
 					url: page.url
@@ -109,6 +101,7 @@ class App
 				cell.innerHTML = "<a href='" + value + "'>" + value + "</a>"
 			else
 				cell.innerHTML = value
+				if value is "check this" then cell.classList.add "u-warning"
 
 			row.appendChild cell
 
