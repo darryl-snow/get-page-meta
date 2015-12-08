@@ -72,7 +72,7 @@ class App
 				@showTable()
 				@hideWaiting()
 				console.info "Here's what was returned:"
-				console.table @urls
+				console.log @urls
 
 	resetTable: ->
 
